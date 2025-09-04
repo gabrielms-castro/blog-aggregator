@@ -1,0 +1,27 @@
+{
+  "name": "blog-aggregator",
+  "version": "1.0.0",
+  "description": "CLI tool that allows users to add RSS feeds, stores it and view summaries of aggregated feeds",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "tsx ./src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielms-castro/blog-aggregator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabrielms-castro/blog-aggregator/issues"
+  },
+  "homepage": "https://github.com/gabrielms-castro/blog-aggregator#readme",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  }
+}
