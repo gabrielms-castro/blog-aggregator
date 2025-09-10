@@ -4,7 +4,7 @@ import { runCommand } from "./commands/run_command";
 import { readConfig, setUser } from "./config"
 import { CommandRegistry } from "./types/command_handler"
 
-function main() {
+async function main() {
     const args = process.argv.slice(2);
     
     if (args.length < 1) {
@@ -15,10 +15,10 @@ function main() {
     const cmdArgs = args.slice(1)
     const commandRegistry: CommandRegistry = {}
 
-    registerCommand(commandRegistry, "login", loginHandler)
+    await registerCommand(commandRegistry, "login", loginHandler)
 
     try {
-        runCommand(commandRegistry, "login", ...cmdArgs)
+        await runCommand(commandRegistry, "login", ...cmdArgs)
     } catch (err) {
         if (err instanceof Error) {
             console.error(`Error running command ${cmdName}: ${err.message}`)
@@ -27,6 +27,8 @@ function main() {
         }
         process.exit(1)
     }
+
+    process.exit(0)
 }
 
 main()
