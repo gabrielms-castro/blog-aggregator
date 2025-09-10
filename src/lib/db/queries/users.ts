@@ -1,6 +1,7 @@
 import { db } from "..";
 import { users } from "src/lib/db/schemas/users";
-import { sql } from "drizzle-orm";
+import { eq  } from "drizzle-orm";
+
 export async function createUser(name: string) {
     const [result] = await db
         .insert(users)
@@ -10,9 +11,11 @@ export async function createUser(name: string) {
     return result
 }
 
-export async function selectUser(name: string) {
-    const query = await db
+export async function getUserByName(name: string) {
+    const [query] = await db
         .select()
         .from(users)
-        .where(sql`${users.name} = '${name}'`)
+        .where(eq(users.name, name))
+    
+        return query ?? null
 }

@@ -6,5 +6,5 @@ export async function runCommand(registry: CommandRegistry, cmdName: string, ...
     if (!handler) {
         throw new Error(`Unknown command: ${cmdName}`)
     }
-    handler(cmdName, ...args);
+    await handler(cmdName, ...args);
 }
