@@ -19,6 +19,6 @@ export async function registerHandler(cmdName: string, ...args: string[]) {
     }    
 
     const user = await createUser(username);
-    await setUser(username);
+    setUser(username);
     console.log(`User created: ${JSON.stringify(user)}`);
 }

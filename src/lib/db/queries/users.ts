@@ -24,7 +24,7 @@ export async function listUsers() {
     const query = await db
         .select()
         .from(users)
-
+    return query ?? null
 }
 
 export async function deleteUser(name: string) {
