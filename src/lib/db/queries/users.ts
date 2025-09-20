@@ -8,7 +8,7 @@ export async function createUser(name: string) {
         .values({name: name})
         .returning();
         
-    return result
+    return result;
 }
 
 export async function getUserByName(name: string) {
@@ -17,5 +17,16 @@ export async function getUserByName(name: string) {
         .from(users)
         .where(eq(users.name, name))
     
-        return query ?? null
+    return query ?? null;
+}
+
+export async function deleteUser(name: string) {
+    const [query] = await db
+        .delete(users)
+        .where(eq(users.name, name))   
+}
+
+export async function deleteAllUsers() {
+    const [query] = await db
+        .delete(users)
 }

@@ -1,5 +1,7 @@
+import { deleteUserHandler } from "./commands/delete_user_command.js";
 import { loginHandler } from "./commands/login_handler.js"
 import { registerCommand, registerHandler } from "./commands/register_command.js"
+import { resetHandler } from "./commands/reset_command.js";
 import { runCommand } from "./commands/run_command.js";
 import { CommandRegistry } from "./types/command_handler.js"
 
@@ -19,7 +21,11 @@ async function main() {
     try {
         await registerCommand(commandRegistry, "login", loginHandler)
         await registerCommand(commandRegistry, "register", registerHandler);
+        await registerCommand(commandRegistry, "delete", deleteUserHandler);
+        await registerCommand(commandRegistry, "reset", resetHandler);
+
         await runCommand(commandRegistry, cmdName, ...cmdArgs)
+
     } catch (err) {
         if (err instanceof Error) {
             console.error(`Error running command ${cmdName}: ${err.message}`)

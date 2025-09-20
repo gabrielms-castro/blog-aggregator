@@ -20,6 +20,6 @@ export async function registerHandler(cmdName: string, ...args: string[]) {
 
     const user = await createUser(username);
 
-    setUser(username);
+    await setUser(username);
     console.log(`User "${username}" created`);
 }
