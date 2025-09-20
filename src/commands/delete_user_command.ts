@@ -7,8 +7,8 @@ export async function deleteUserHandler(cmdName: string, ...args: string[]) {
     const username = args[0]
     const existing = await getUserByName(username);
     if (existing) {
-        await deleteUser(username);
-        console.log(`User "${username}" deleted`);
+        const deleted = await deleteUser(username);
+        console.log(`User deleted: ${JSON.stringify(deleted)}`);
     } else {
         throw new Error(`Username "${username}" doesn't exists`);
     }

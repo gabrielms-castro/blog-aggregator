@@ -20,13 +20,24 @@ export async function getUserByName(name: string) {
     return query ?? null;
 }
 
+export async function listUsers() {
+    const query = await db
+        .select()
+        .from(users)
+
+}
+
 export async function deleteUser(name: string) {
-    const [query] = await db
+    const [result] = await db
         .delete(users)
         .where(eq(users.name, name))   
+        .returning();
+    return result;        
 }
 
 export async function deleteAllUsers() {
-    const [query] = await db
+    const [result] = await db
         .delete(users)
+        .returning();
+    return result;
 }
