@@ -1,3 +1,4 @@
+import { aggHandler } from "./commands/agg_command.js";
 import { deleteUserHandler } from "./commands/delete_user_command.js";
 import { getUsersHandler } from "./commands/get_users_command.js";
 import { loginHandler } from "./commands/login_handler.js"
@@ -25,6 +26,7 @@ async function main() {
         await registerCommand(commandRegistry, "delete", deleteUserHandler);
         await registerCommand(commandRegistry, "reset", resetHandler);
         await registerCommand(commandRegistry, "users", getUsersHandler)
+        await registerCommand(commandRegistry, "agg", aggHandler)
 
         await runCommand(commandRegistry, cmdName, ...cmdArgs)
 
