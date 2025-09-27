@@ -1,6 +1,5 @@
 import { aggHandler } from "./commands/agg_command.js";
-import { deleteUserHandler } from "./commands/delete_user_command.js";
-import { getUsersHandler } from "./commands/get_users_command.js";
+import { getUsersHandler, deleteUserHandler } from "./commands/users_command.js";
 import { loginHandler } from "./commands/login_handler.js"
 import { registerCommand, registerHandler } from "./commands/register_command.js"
 import { resetHandler } from "./commands/reset_command.js";
