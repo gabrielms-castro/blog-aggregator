@@ -6,6 +6,7 @@ import { getUsersHandler, deleteUserHandler } from "./commands/users_command.js"
 import { loginHandler } from "./commands/login_handler.js"
 import { resetHandler } from "./commands/reset_command.js";
 import { runCommand } from "./commands/run_command.js";
+import { listFeedsHandler } from "./commands/listFeeds.js";
 
 async function main() {
     const args = process.argv.slice(2);
@@ -28,6 +29,7 @@ async function main() {
         await registerCommand(commandRegistry, "users", getUsersHandler)
         await registerCommand(commandRegistry, "agg", aggHandler)
         await registerCommand(commandRegistry, "addfeed", addFeedHandler)
+        await registerCommand(commandRegistry, "feeds", listFeedsHandler)
 
         await runCommand(commandRegistry, cmdName, ...cmdArgs)
 

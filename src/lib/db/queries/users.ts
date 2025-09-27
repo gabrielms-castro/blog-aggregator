@@ -20,6 +20,15 @@ export async function getUserByName(name: string) {
     return query ?? null;
 }
 
+export async function getUserByID(userID: string) {
+    const [query] = await db
+        .select()
+        .from(users)
+        .where(eq(users.id, userID))
+    
+    return query ?? null;
+}
+
 export async function listUsers() {
     const query = await db
         .select()
