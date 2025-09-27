@@ -1,5 +1,6 @@
 import { setUser } from "src/config";
 import { createUser, getUserByName } from "src/lib/db/queries/users";
+import { User } from "src/lib/db/schemas/schemas";
 import { CommandHandler, CommandRegistry } from "src/types/command_handler";
 
 export async function registerCommand(registry: CommandRegistry, cmdName: string, handler: CommandHandler): Promise<void> {
@@ -20,5 +21,13 @@ export async function registerHandler(cmdName: string, ...args: string[]) {
 
     const user = await createUser(username);
     setUser(username);
-    console.log(`User created: ${JSON.stringify(user)}`);
+    printUser(user)
+}
+
+function printUser(user: User) {
+    console.log("New User created:")
+    console.log(`* ID:            ${user.id}`);
+    console.log(`* Name:          ${user.name}`);
+    console.log(`* Created:       ${user.created_at}`);
+    console.log(`* Updated:       ${user.updated_at}`);    
 }
