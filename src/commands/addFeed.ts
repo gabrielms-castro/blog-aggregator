@@ -28,8 +28,8 @@ export async function addFeedHandler(cmdName: string, ...args: string[]) {
 function printFeed(feed: Feed, user: User) {
     console.log("New Feed created:")
     console.log(`* ID:            ${feed.id}`);
-    console.log(`* Created:       ${feed.created_at}`);
-    console.log(`* Updated:       ${feed.updated_at}`);
+    console.log(`* Created:       ${feed.createdAt}`);
+    console.log(`* Updated:       ${feed.updatedAt}`);
     console.log(`* name:          ${feed.name}`);
     console.log(`* URL:           ${feed.url}`);
     console.log(`* User:          ${user.name}`);

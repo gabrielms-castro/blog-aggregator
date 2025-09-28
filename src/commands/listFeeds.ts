@@ -6,7 +6,7 @@ export async function listFeedsHandler(_:string) {
 
     for (const feed of feeds) {
         
-        const userData = await getUserByID(feed.user_id);
+        const userData = await getUserByID(feed.userId);
         const userName = userData.name;
 
         console.log();

@@ -4,7 +4,7 @@ import { feeds } from "src/lib/db/schemas/schemas.js";
 export async function createFeed(name: string, url: string, userId: string) {
     const [result] = await db
         .insert(feeds)
-        .values({name: name, url: url, user_id: userId})
+        .values({name: name, url: url, userId: userId})
         .returning();
     return result;
 }

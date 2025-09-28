@@ -28,6 +28,6 @@ function printUser(user: User) {
     console.log("New User created:")
     console.log(`* ID:            ${user.id}`);
     console.log(`* Name:          ${user.name}`);
-    console.log(`* Created:       ${user.created_at}`);
-    console.log(`* Updated:       ${user.updated_at}`);    
+    console.log(`* Created:       ${user.createdAt}`);
+    console.log(`* Updated:       ${user.updatedAt}`);    
 }

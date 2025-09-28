@@ -15,6 +15,20 @@
       "when": 1758852658686,
       "tag": "0001_brown_skrulls",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1759083078045,
+      "tag": "0002_overconfident_veda",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1759084760561,
+      "tag": "0003_narrow_dagger",
+      "breakpoints": true
     }
   ]
 }
