@@ -1,15 +1,11 @@
 import { getFeedFollowsForUser } from "src/lib/db/queries/feedFollow";
 import { getUserByName } from "src/lib/db/queries/users";
+import { User } from "src/lib/db/schemas/schemas";
 import { getCurrentUser } from "src/utils/get_current_user";
 
-export async function followingHandler(cmdName: string, ...args: string[]) {
-    const currentUser = getCurrentUser();
-    if (!currentUser) throw new Error("Not logged in");
-    
-    const userData = await getUserByName(currentUser);
-    if (!userData) throw new Error("User not found");
-    const userId = userData.id
-    const userName = userData.name
+export async function followingHandler(_:string, user: User) {
+    const userId = user.id
+    const userName = user.name
     
     const following = await getFeedFollowsForUser(userId);
     if (following.length === 0) {

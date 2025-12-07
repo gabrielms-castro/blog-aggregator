@@ -3,8 +3,17 @@ import { createUser, getUserByName } from "src/lib/db/queries/users";
 import { User } from "src/lib/db/schemas/schemas";
 import { CommandHandler, CommandRegistry } from "src/types/command_handler";
 
-export async function registerCommand(registry: CommandRegistry, cmdName: string, handler: CommandHandler): Promise<void> {
-    // this function registers a new handler function for a command name
+/**
+ * Registers a new handler function for a command name
+ * @param registry 
+ * @param cmdName 
+ * @param handler 
+ */
+export async function registerCommand(
+    registry: CommandRegistry, 
+    cmdName: string, 
+    handler: CommandHandler
+): Promise<void> {
     registry[cmdName] = handler
 }
 

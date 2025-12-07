@@ -1,4 +1,4 @@
-import { CommandRegistry } from "./types/command_handler.js"
+import { CommandRegistry, middlewareLoggedIn } from "./types/command_handler.js"
 import { registerCommand, registerHandler } from "./commands/register_command.js"
 import { addFeedHandler } from "./commands/addFeed.js";
 import { aggHandler } from "./commands/agg_command.js";
@@ -29,10 +29,10 @@ async function main() {
         await registerCommand(commandRegistry, "reset", resetHandler);
         await registerCommand(commandRegistry, "users", getUsersHandler);
         await registerCommand(commandRegistry, "agg", aggHandler);
-        await registerCommand(commandRegistry, "addfeed", addFeedHandler);
         await registerCommand(commandRegistry, "feeds", listFeedsHandler);
-        await registerCommand(commandRegistry, "follow", followHandler);
-        await registerCommand(commandRegistry, "following", followingHandler);
+        await registerCommand(commandRegistry, "addfeed", middlewareLoggedIn(addFeedHandler));
+        await registerCommand(commandRegistry, "follow", middlewareLoggedIn(followHandler));
+        await registerCommand(commandRegistry, "following", middlewareLoggedIn(followingHandler));
 
         await runCommand(commandRegistry, cmdName, ...cmdArgs)
 
