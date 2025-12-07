@@ -1,4 +1,5 @@
 import { readConfig } from "src/config.js";
+import { createFeedFollow } from "src/lib/db/queries/feedFollow";
 import { createFeed } from "src/lib/db/queries/feeds.js";
 import { getUserByName } from "src/lib/db/queries/users.js";
 import { Feed, User } from "src/lib/db/schemas/schemas.js";
@@ -23,6 +24,9 @@ export async function addFeedHandler(cmdName: string, ...args: string[]) {
 
     const newFeed = await createFeed(feedName, feedURL, userId)
     printFeed(newFeed, userData)
+
+    const createdFeedFollow = await createFeedFollow(userId, newFeed.id);
+    console.log(`${createdFeedFollow.userName} is now following ${createdFeedFollow.feedName}`);
 }
 
 function printFeed(feed: Feed, user: User) {

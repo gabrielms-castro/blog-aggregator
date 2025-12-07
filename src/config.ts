@@ -32,7 +32,7 @@ function getConfigFilePath(): string {
 }
 
 function writeConfig(cfg: Config) {
-    const out ={
+    const out = {
         db_url: cfg.dbUrl,
         current_user_name: cfg.currentUserName,
     }

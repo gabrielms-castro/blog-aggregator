@@ -39,9 +39,7 @@ export const feeds = pgTable("feeds", {
         .notNull()
 });
 
-export const feedFollows = pgTable(
-    "feed_follows", 
-    {
+export const feedFollows = pgTable("feed_follows", {
         id: uuid("id")
             .primaryKey()
             .defaultRandom()
@@ -67,3 +65,4 @@ export const feedFollows = pgTable(
 
 export type User = typeof users.$inferSelect
 export type Feed = typeof feeds.$inferSelect
+export type FeedFollow = typeof feedFollows.$inferSelect;
