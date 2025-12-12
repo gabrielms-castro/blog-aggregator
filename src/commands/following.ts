@@ -1,7 +1,5 @@
 import { getFeedFollowsForUser } from "src/lib/db/queries/feedFollow";
-import { getUserByName } from "src/lib/db/queries/users";
 import { User } from "src/lib/db/schemas/schemas";
-import { getCurrentUser } from "src/utils/get_current_user";
 
 export async function followingHandler(_:string, user: User) {
     const userId = user.id

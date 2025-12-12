@@ -1,8 +1,6 @@
 import { createFeedFollow } from "src/lib/db/queries/feedFollow";
 import { getFeedByURL } from "src/lib/db/queries/feeds";
-import { getUserByName } from "src/lib/db/queries/users";
 import { User } from "src/lib/db/schemas/schemas";
-import { getCurrentUser } from "src/utils/get_current_user";
 import { isURLvalid } from "src/utils/is_url_valid";
 
 export async function followHandler(cmdName: string, user: User, ...args: string[]) {

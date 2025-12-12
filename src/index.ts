@@ -9,6 +9,7 @@ import { runCommand } from "./commands/run_command.js";
 import { listFeedsHandler } from "./commands/listFeeds.js";
 import { followHandler } from "./commands/follow.js";
 import { followingHandler } from "./commands/following.js";
+import { unfollowHandler } from "./commands/unfollow.js";
 
 async function main() {
     const args = process.argv.slice(2);
@@ -33,7 +34,8 @@ async function main() {
         await registerCommand(commandRegistry, "addfeed", middlewareLoggedIn(addFeedHandler));
         await registerCommand(commandRegistry, "follow", middlewareLoggedIn(followHandler));
         await registerCommand(commandRegistry, "following", middlewareLoggedIn(followingHandler));
-
+        await registerCommand(commandRegistry, "unfollow", middlewareLoggedIn(unfollowHandler));
+        
         await runCommand(commandRegistry, cmdName, ...cmdArgs)
 
     } catch (err) {
