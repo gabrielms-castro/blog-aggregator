@@ -1,0 +1,1 @@
+ALTER TABLE "feeds" ADD COLUMN "last_fetchec_at" timestamp;
