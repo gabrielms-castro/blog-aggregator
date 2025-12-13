@@ -1,8 +1,8 @@
 import { XMLParser } from "fast-xml-parser";
 import { getNextFeedToFetch, markFeedFetched } from "src/lib/db/queries/feeds";
-import { CreatePost, createPost } from "src/lib/db/queries/posts";
+import { CreatePost, createPost, getPostByURL } from "src/lib/db/queries/posts";
 import { getUserByName } from "src/lib/db/queries/users";
-import { Feed } from "src/lib/db/schemas/schemas";
+import { Feed, NewPost } from "src/lib/db/schemas/schemas";
 import { RSSFeed, RSSItem } from "src/types/rss_feed";
 import { getCurrentUser } from "src/utils/get_current_user";
 
@@ -71,25 +71,35 @@ export async function scrapeFeeds() {
         console.log(`No feeds to fetch.`);
         return;        
     }
+    console.log(`Found a feed to fetch!`);
     scrapeFeed(nextFeed)
 }
 
 async function scrapeFeed(feed: Feed) {
     await markFeedFetched(feed.id)
     const feedData = await fetchFeed(feed.url)
-    console.log(
-        `Feed ${feedData.channel.title} collected`,
-    );    
+    for (let item of feedData.channel.item) {
+        console.log(`Found post: %s`, item.title);
 
-    const postObj: CreatePost = {
-        metadata: {
-            title : feedData.channel.title,
-            link : feedData.channel.link,
-            description : feedData.channel.description,
-            pubDate : feedData.channel.item[0].pubDate
-        },
-        feedId: feed.id
+        const postDataIfExists = await getPostByURL(item.link)
+        if (postDataIfExists) {
+            console.log(`Post ${item.title} already exists in database.`);
+            continue;
+        }
+        const now = new Date();
+        await createPost({
+            url: item.link,
+            feedId: feed.id,
+            title: item.title,
+            createdAt: now,
+            updatedAt: now,
+            publishedAt: new Date(item.pubDate),
+            description: item.description
+        } satisfies NewPost)
     }
-    await createPost(postObj)
+
+    console.log(
+        `Feed ${feed.name} collected, ${feedData.channel.item.length} posts found`,
+    );    
 }
 

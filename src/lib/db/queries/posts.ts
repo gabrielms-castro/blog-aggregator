@@ -1,23 +1,11 @@
-import { RSSItem } from "src/types/rss_feed";
 import { db } from "..";
-import { feeds, posts } from "src/lib/db/schemas/schemas.js";
+import { feedFollows, feeds, NewPost, posts } from "src/lib/db/schemas/schemas.js";
 import { eq, desc } from "drizzle-orm";
 
-export type CreatePost = {
-    metadata: RSSItem;
-    feedId:string
-}
-
-export async function createPost(input: CreatePost) {
+export async function createPost(input: NewPost) {
     const [result] = await db
         .insert(posts)
-        .values({
-            title: input.metadata.title,
-            url: input.metadata.link,
-            description: input.metadata.description,
-            publishedAt: input.metadata.pubDate,
-            feedId: input.feedId
-        })
+        .values(input)
         .returning()
     
     return result
@@ -25,11 +13,30 @@ export async function createPost(input: CreatePost) {
 
 export async function getPostsForUser(userID: string) {
     const query = await db
-        .select()
+        .select({
+            id: posts.id,
+            createdAt: posts.createdAt,
+            updatedAt: posts.updatedAt,
+            title: posts.title,
+            url: posts.url,
+            description: posts.description,
+            publishedAt: posts.publishedAt,
+            feedId: posts.feedId,
+            feedName: feeds.name,
+        })
         .from(posts)
+        .innerJoin(feedFollows, eq(posts.feedId, feedFollows.feedId))
         .innerJoin(feeds, eq(posts.feedId, feeds.id))
-        .where(eq(feeds.userId, userID))
+        .where(eq(feedFollows.userId, userID))
         .orderBy(desc(posts.publishedAt))
 
     return query
+}
+
+export async function getPostByURL(url: string) {
+    const [query] = await db
+        .select()
+        .from(posts)
+        .where(eq(posts.url, url))
+    return query ?? null
 }

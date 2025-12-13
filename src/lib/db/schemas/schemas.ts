@@ -88,7 +88,7 @@ export const posts = pgTable("posts", {
     
     description: text("description"),
     
-    publishedAt: text("published_at")
+    publishedAt: timestamp("published_at")
         .notNull(),
     
     feedId: uuid("feed_id")
@@ -99,5 +99,5 @@ export const posts = pgTable("posts", {
 
 export type User = typeof users.$inferSelect
 export type Feed = typeof feeds.$inferSelect
-export type Post = typeof posts.$inferSelect    
+export type NewPost = typeof posts.$inferInsert
 export type FeedFollow = typeof feedFollows.$inferSelect;
