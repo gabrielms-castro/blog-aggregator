@@ -88,9 +88,8 @@ export const posts = pgTable("posts", {
     
     description: text("description"),
     
-    publishedAt: timestamp("published_at")
-        .notNull()
-        .defaultNow(),
+    publishedAt: text("published_at")
+        .notNull(),
     
     feedId: uuid("feed_id")
         .references(() => feeds.id, {onDelete: "cascade"})
