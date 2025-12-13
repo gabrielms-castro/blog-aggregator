@@ -1,7 +1,10 @@
 import { XMLParser } from "fast-xml-parser";
 import { getNextFeedToFetch, markFeedFetched } from "src/lib/db/queries/feeds";
+import { CreatePost, createPost } from "src/lib/db/queries/posts";
+import { getUserByName } from "src/lib/db/queries/users";
 import { Feed } from "src/lib/db/schemas/schemas";
 import { RSSFeed, RSSItem } from "src/types/rss_feed";
+import { getCurrentUser } from "src/utils/get_current_user";
 
 export async function fetchFeed(feedURL: string) {
     const response = await fetch (feedURL, {
@@ -73,9 +76,20 @@ export async function scrapeFeeds() {
 
 async function scrapeFeed(feed: Feed) {
     await markFeedFetched(feed.id)
-    const feedData = fetchFeed(feed.url)
+    const feedData = await fetchFeed(feed.url)
     console.log(
-        `Feed ${feed.name} collected`,
+        `Feed ${feedData.channel.title} collected`,
     );    
+
+    const postObj: CreatePost = {
+        metadata: {
+            title : feedData.channel.title,
+            link : feedData.channel.link,
+            description : feedData.channel.description,
+            pubDate : feedData.channel.item[0].pubDate
+        },
+        feedId: feed.id
+    }
+    await createPost(postObj)
 }
 

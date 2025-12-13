@@ -3,7 +3,7 @@ import { db } from "..";
 import { feeds, posts } from "src/lib/db/schemas/schemas.js";
 import { eq, desc } from "drizzle-orm";
 
-type CreatePost = {
+export type CreatePost = {
     metadata: RSSItem;
     feedId:string
 }
